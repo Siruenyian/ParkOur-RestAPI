@@ -13,14 +13,14 @@ return new class extends Migration
     {
 
         Schema::create('transaksi', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id_transaksi')->primary();
             $table->string('plat_nomor');
             $table->dateTime('tgl_masuk');
             $table->dateTime('tgl_keluar')->nullable();
             $table->string('jenis_kendaraan');
             $table->integer('biaya')->nullable();
-            $table->unsignedbigInteger('tempat_id');
-            $table->foreign('tempat_id')->references('id')->on('tempat')->onUpdate('cascade');;
+            $table->uuid('id_tempat');
+            $table->foreign('id_tempat')->references('id_tempat')->on('tempat')->onUpdate('cascade');;
         });
     }
 

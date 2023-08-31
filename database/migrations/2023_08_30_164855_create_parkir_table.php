@@ -13,15 +13,15 @@ return new class extends Migration
     {
 
         Schema::create('parkir', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id_parkir')->primary();
+            $table->integer('lantai');
             $table->integer('avail_mobil');
             $table->integer('avail_motor');
             $table->integer('max_mobil');
             $table->integer('max_motor');
-            $table->integer('price_mobil');
-            $table->integer('price_motor');
-            $table->unsignedbigInteger('tempat_id');
-            $table->foreign('tempat_id')->references('id')->on('tempat')->onUpdate('cascade');;
+            $table->uuid('id_tempat');
+            $table->foreign('id_tempat')->references('id_tempat')->on('tempat')->onUpdate('cascade');;
+
         });
     }
 

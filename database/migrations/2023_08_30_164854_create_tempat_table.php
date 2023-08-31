@@ -14,11 +14,13 @@ return new class extends Migration
 
 
         Schema::create('tempat', function (Blueprint $table) {
-            $table->id();
-            $table->lineString('nama');
-            $table->multiLineString('alamat');
-            $table->decimal('latitude');
-            $table->decimal('longitude');
+            $table->uuid('id_tempat')->primary();
+            $table->string('nama');
+            $table->text('alamat');
+            $table->double('latitude');
+            $table->double('longitude');
+            $table->integer('price_mobil');
+            $table->integer('price_motor');
         });
     }
 
