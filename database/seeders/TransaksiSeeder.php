@@ -24,6 +24,7 @@ class TransaksiSeeder extends \Illuminate\Database\Seeder
             "tgl_keluar" => "2023-08-01 18:00:00",
             "jenis_kendaraan" => "MOBIL",
             "biaya" => 5000,
+            "status_bayar" => true,
             "id_tempat" => "1530eb83-5619-451a-b2f7-ffec38183a69",
         ]);
         DB::table('transaksi')->insert([

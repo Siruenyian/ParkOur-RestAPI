@@ -19,6 +19,7 @@ return new class extends Migration
             $table->dateTime('tgl_keluar')->nullable();
             $table->string('jenis_kendaraan');
             $table->integer('biaya')->nullable();
+            $table->boolean('status_bayar')->default(false);;
             $table->uuid('id_tempat');
             $table->foreign('id_tempat')->references('id_tempat')->on('tempat')->onUpdate('cascade');;
         });
