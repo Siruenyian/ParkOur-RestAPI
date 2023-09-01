@@ -10,11 +10,11 @@ class ListParkirQuery implements ListParkirQueryInterface
 
     public function execute(string $nama): ?array
     {
-//        $sql="SELECT nama, alamat, avail_mobil, avail_motor, max_mobil, max_motor, price_mobil, max_mobil, max_motor
+//        $sql="SELECT nama, latitude, longitude, lantai,avail_mobil, avail_motor, max_mobil, max_motor, price_mobil, price_motor
 //                FROM tempat
-//                INNER JOIN parkir ON parkir.tempat_id=tempat.id
+//                INNER JOIN parkir ON parkir.id_tempat=tempat.id_tempat
 //                WHERE nama=:nama_tempat";
-        $sql="SELECT nama, latitude, longitude, lantai,avail_mobil, avail_motor, max_mobil, max_motor, price_mobil, price_motor
+        $sql="SELECT nama, latitude, longitude,SUM(avail_mobil), SUM(avail_motor), SUM(max_mobil), SUM(max_motor), price_mobil, price_motor
                 FROM tempat
                 INNER JOIN parkir ON parkir.id_tempat=tempat.id_tempat
                 WHERE nama=:nama_tempat";
@@ -32,6 +32,8 @@ class ListParkirQuery implements ListParkirQueryInterface
                 $hasil->avail_motor,
                 $hasil->max_mobil,
                 $hasil->max_motor,
+                $hasil->price_mobil,
+                $hasil->price_motor,
             );
         }
 

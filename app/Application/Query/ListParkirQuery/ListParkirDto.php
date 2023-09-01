@@ -13,6 +13,9 @@ class ListParkirDto
         public int $avail_motor,
         public int $max__mobil,
         public int $max_motor,
+        public int $price_mobil,
+        public int $price_motor,
+
     )
     { }
 }
