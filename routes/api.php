@@ -14,8 +14,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
+//harus/api dulu
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/search/{nama}', [ParkirController::class, 'search']);
+Route::get('/caritempat/{nama}', [ParkirController::class, 'CariTempat']);
+Route::post('/cariparkir', [ParkirController::class, 'CariParkir']);
+Route::post('/bayarparkir', [ParkirController::class, 'BayarParkir']);
