@@ -10,13 +10,9 @@ class TransaksiId
 {
     private $id;
 
-    public function __construct(string $id)
+    public function __construct(string $id = null)
     {
-        if (Uuid::isValid($id)) {
-            $this->id = $id;
-        } else {
-            throw new \InvalidArgumentException("Invalid TransaksiId format.");
-        }
+        $this->id = $id ? : Uuid::uuid4()->toString();
     }
 
     public function id(): string

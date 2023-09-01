@@ -65,6 +65,23 @@ class Transaksi
     const MOBIL = 'MOBIL';
     const MOTOR = 'MOTOR';
     private Tempat $tempat;
+    private bool $statusBayar;
+
+    /**
+     * @return bool
+     */
+    public function getStatusBayar(): bool
+    {
+        return $this->statusBayar;
+    }
+
+    /**
+     * @return Tempat
+     */
+    public function getTempat(): Tempat
+    {
+        return $this->tempat;
+    }
     /**
      * @param TransaksiId $id
      * @param string $platNomor
@@ -73,7 +90,7 @@ class Transaksi
      * @param string $jenisKendaraan
      * @param int $biaya
      */
-    public function __construct(TransaksiId $id, Tempat $tempat,string $platNomor, DateTime $tglMasuk, ?DateTime $tglKeluar, string $jenisKendaraan)
+    public function __construct(TransaksiId $id, Tempat $tempat,string $platNomor, DateTime $tglMasuk, ?DateTime $tglKeluar=null, string $jenisKendaraan)
     {
         $this->id = $id;
         $this->platNomor = $platNomor;
@@ -85,15 +102,19 @@ class Transaksi
         }
         $this->jenisKendaraan = $jenisKendaraan;
         $this->biaya=0;
+        $this->statusBayar=false;
     }
-    private function differenceInHours($starttimestamp,$endtimestamp){
-        $difference = abs(($endtimestamp - $starttimestamp)/3600);
-        return $difference;
+    private function differenceInHours($date1,$date2){
+        $diff = $date2->diff($date1);
+
+        $hours = $diff->h;
+        $hours = $hours + ($diff->days*24);
+        return $hours;
     }
 
     //    free parking.png
     //    Langsung auto selesai
-    public function SelesaiParkir(): int
+    public function SelesaiParkir(): Transaksi
     {
 
         switch ($this->jenisKendaraan) {
@@ -111,9 +132,12 @@ class Transaksi
         $hours=$this->differenceInHours($this->tglMasuk,$this->tglKeluar);
         //hitung tarif
         if ($hours>2){
-            return $harga*$hours;
+            $this->biaya= $harga*$hours;
+            return  $this;
         }
-        return $harga*2;
+        $this->biaya=$harga*2;
+        $this->statusBayar=true;
+        return $this;
     }
 
 }
