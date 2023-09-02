@@ -24,7 +24,7 @@ class TransaksiReposiory implements TransaksiRepositoryInterface
         $row_tempat->nama, $row_tempat->alamat, $row_tempat->latitude, $row_tempat->longitude, $row_tempat->price_mobil, $row_tempat->price_motor);
 
         return new Transaksi(new TransaksiId($row->id_transaksi),
-            $tempat, $row->plat_nomor, new DateTime($row->tgl_masuk, new DateTimeZone("Asia/Jakarta")), new DateTime($row->tgl_keluar, new DateTimeZone("Asia/Jakarta")), $row->jenis_kendaraan, $row->biaya,$row->status_bayar);
+            $tempat, $row->plat_nomor, new DateTime($row->tgl_masuk, new DateTimeZone("Asia/Jakarta")), new DateTime($row->tgl_keluar, new DateTimeZone("Asia/Jakarta")), $row->jenis_kendaraan, $row->lantai, $row->biaya,$row->status_bayar);
     }
 
     public function byDate(DateTime $dateTime): ?array
@@ -37,8 +37,10 @@ class TransaksiReposiory implements TransaksiRepositoryInterface
     {
         // TODO: Implement save() method.
         $payload = $this->constructPayloadWithoutIdAndTime($transaksi);
-        $payload['id_transaksi'] = $transaksi->getId()->id();
+        $payload["id_transaksi"] = $transaksi->getId()->id();
+        $payload['lantai'] = $transaksi->getLantai();
         $payload['tgl_masuk'] = new DateTime('now', new DateTimeZone("Asia/Jakarta"));
+        $payload["id_tempat"] = $transaksi->getTempat()->getId()->id();
         DB::table('transaksi')->insert($payload);
 
     }
@@ -71,8 +73,6 @@ class TransaksiReposiory implements TransaksiRepositoryInterface
         return [
             "plat_nomor" => $transaksi->getPlatNomor(),
             "jenis_kendaraan" => $transaksi->getJenisKendaraan(),
-            "id_tempat" => $transaksi->getTempat()->getId()->id(),
-
         ];
     }
 }

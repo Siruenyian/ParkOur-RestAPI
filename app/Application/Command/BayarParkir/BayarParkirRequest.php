@@ -6,7 +6,7 @@ class BayarParkirRequest
 {
     public function __construct(
         public string $transaksiId,
-        public string $plat_nomor,
+        public string $tempatId,
     )
     { }
 }

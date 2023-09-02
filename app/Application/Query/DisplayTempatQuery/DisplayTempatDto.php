@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Application\Query\ListParkirQuery;
+namespace App\Application\Query\DisplayTempatQuery;
 
-class ListParkirDto
+class DisplayTempatDto
 {
     public function __construct(
         public string $nama,
         public string $latitude,
         public string $longitude,
-        public int $lantai,
         public int $avail_mobil,
         public int $avail_motor,
         public int $max__mobil,

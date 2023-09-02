@@ -18,6 +18,7 @@ return new class extends Migration
             $table->dateTime('tgl_masuk');
             $table->dateTime('tgl_keluar')->nullable();
             $table->string('jenis_kendaraan');
+            $table->integer('lantai');
             $table->integer('biaya')->nullable();
             $table->boolean('status_bayar')->default(false);;
             $table->uuid('id_tempat');

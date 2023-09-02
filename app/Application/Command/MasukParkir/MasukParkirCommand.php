@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Command\CariParkir;
+namespace App\Application\Command\MasukParkir;
 
 use App\Core\Models\Tempat\TempatId;
 use App\Core\Models\Transaksi\Transaksi;
@@ -13,18 +13,19 @@ use Illuminate\Support\Facades\DB;
 use InvalidArgumentException;
 use Throwable;
 use Illuminate\Support\Facades\Log;
-class CariParkirCommand
+class MasukParkirCommand
 {
     public function __construct(
         private TempatRepositoryInterface $tempatRepository,
         private TransaksiRepositoryInterface $transaksiRepository
     ) { }
-    public function execute(CariParkirRequest $request): string
+    public function execute(MasukParkirRequest $request): array
     {
         Log::debug('An informational message.');
         $tempat = $this->tempatRepository->byId(new tempatId($request->tempatId));
         if (!$tempat) throw new InvalidArgumentException("tempat tidak ditemukan");
         //TODO: create new transaction
+
         DB::beginTransaction();
         try {
             $transaksiId=new TransaksiId();
@@ -35,16 +36,21 @@ class CariParkirCommand
                 $tempat,
                 $request->plat_nomor,
                 new DateTime("now", new DateTimeZone("Asia/Jakarta")),
-                new DateTime("now", new DateTimeZone("Asia/Jakarta")),
+                null,
                 $jenisKendaraan,
+                0,
+                0,
+                false
             );
+            $newTransaksi->cariTempatParkir();
+            //live update Tempat juga, kurangin available
             $this->transaksiRepository->save($newTransaksi);
         } catch (Throwable $exception) {
             DB::rollBack();
             throw $exception;
         }
         DB::commit();
-        return $transaksiId->id();
+        return [$newTransaksi->getId()->id(), $newTransaksi->getTempat()->getNama(), $newTransaksi->getLantai()];
 
     }
 }

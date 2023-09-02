@@ -15,6 +15,7 @@ return new class extends Migration
 
         Schema::create('tempat', function (Blueprint $table) {
             $table->uuid('id_tempat')->primary();
+            $table->string('code_tempat');
             $table->string('nama');
             $table->text('alamat');
             $table->double('latitude');

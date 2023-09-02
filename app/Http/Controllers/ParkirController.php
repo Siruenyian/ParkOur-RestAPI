@@ -4,16 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Application\Command\BayarParkir\BayarParkirCommand;
 use App\Application\Command\BayarParkir\BayarParkirRequest;
-use App\Application\Command\CariParkir\CariParkirCommand;
-use App\Application\Command\CariParkir\CariParkirRequest;
-use App\Application\Query\ListParkirQuery\ListParkirQueryInterface;
+use App\Application\Command\MasukParkir\MasukParkirCommand;
+use App\Application\Command\MasukParkir\MasukParkirRequest;
+use App\Application\Query\CariTempatQuery\CariTempatQueryInterface;
+use App\Infrastructure\Query\MySQL\DisplayHistoryDetailQuery;
+use App\Infrastructure\Query\MySQL\DisplayHistoryQuery;
+use App\Infrastructure\Query\MySQL\DisplayTempatQuery;
 use Exception;
 use Illuminate\Http\Request;
 class ParkirController extends Controller
 {
 
     public function __construct(
-        private ListParkirQueryInterface $listparkirQuery
+        private CariTempatQueryInterface $cariTempatQuery,
+        private DisplayTempatQuery $displayTempatQuery,
+        private DisplayHistoryQuery $displayHistoryQuery,
+        private DisplayHistoryDetailQuery $displayHistoryDetailQuery
     )
     {
     }
@@ -21,7 +27,7 @@ class ParkirController extends Controller
     public function CariTempat($nama)
     {
 
-        $tempat = $this->listparkirQuery->execute($nama);
+        $tempat = $this->cariTempatQuery->execute($nama);
 
 
         if (!$tempat) {
@@ -30,37 +36,68 @@ class ParkirController extends Controller
         return response()->json($tempat, 200);
     }
 
+    public function DisplayTempat()
+    {
+
+        $tempat = $this->displayTempatQuery->execute();
+
+        if (!$tempat) {
+            return response()->json("Tidak ada tempat", 501);
+        }
+        return response()->json($tempat, 200);
+    }
+
+    public function DisplayHistory()
+    {
+
+        $history = $this->displayHistoryQuery->execute();
+
+        if (!$history) {
+            return response()->json("History tidak ditemukan", 501);
+        }
+        return response()->json($history, 200);
+    }
+
+    public function DisplayHistoryDetail($transaksiId)
+    {
+        $history = $this->displayHistoryDetailQuery->execute($transaksiId);
+
+        if (!$history) {
+            return response()->json("Detail tidak ditemukan", 501);
+        }
+        return response()->json($history, 200);
+    }
+
 //    test with 1530eb83-5619-451a-b2f7-ffec38183a69, ALKSNDAKJ
-    public function CariParkir(Request $request, CariParkirCommand $command)
+    public function MasukParkir(Request $request, MasukParkirCommand $command)
     {
         $tempatId=$request->input('tempatId');;
         $platNomor=$request->input('platNomor');;
-        $input = array("1D", "2D", "3D", "4D", "5D");
-        //update transaksi table juga
-        $tempat_parkir=$input[array_rand($input)];
-        $cariparkirRequest = new CariParkirRequest(
+
+        $cariparkirRequest = new MasukParkirRequest(
             $tempatId, $platNomor
         );
         try {
             //add retrieve id
-            $id=$command->execute($cariparkirRequest);
+            $arrayResult=$command->execute($cariparkirRequest);
         } catch (Throwable $e) {
             return back()->withErrors($e->getMessage())->withInput();
         }
-        return response()->json([$id, $tempat_parkir], 200);
+        return response()->json($arrayResult, 200);
     }
 //This is for bayar parkir, jgn salah
     public function BayarParkir(Request $request, BayarParkirCommand $command)
     {
         $transaksiId=$request->input('transaksiId');;
-        $platNomor=$request->input('platNomor');;
+        $tempatId=$request->input('tempatId');;
         $bayarparkirRequest = new BayarParkirRequest(
-            $transaksiId,$platNomor
+            $transaksiId, $tempatId
         );
         try {
             $command->execute($bayarparkirRequest);
         } catch (Throwable $e) {
-            return back()->withErrors($e->getMessage())->withInput();
+//            return back()->withErrors($e->getMessage())->withInput();
+            return response()->json("pembayaran gagal", 500);
         }
         return response()->json("pembayaran sukses", 200);
     }

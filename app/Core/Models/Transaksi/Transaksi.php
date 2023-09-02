@@ -36,7 +36,7 @@ class Transaksi
     /**
      * @return DateTime
      */
-    public function getTglKeluar(): DateTime
+    public function getTglKeluar(): ?DateTime
     {
         return $this->tglKeluar;
     }
@@ -52,16 +52,25 @@ class Transaksi
     /**
      * @return int
      */
-    public function getBiaya(): int
+    public function getBiaya(): ?int
     {
         return $this->biaya;
     }
 
     private string $platNomor;
     private DateTime $tglMasuk;
-    private DateTime $tglKeluar;
+    private ?DateTime $tglKeluar;
     private string $jenisKendaraan;
-    private int $biaya;
+    private int $lantai;
+
+    /**
+     * @return int
+     */
+    public function getLantai(): int
+    {
+        return $this->lantai;
+    }
+    private ?int $biaya;
     const MOBIL = 'MOBIL';
     const MOTOR = 'MOTOR';
     private Tempat $tempat;
@@ -90,7 +99,7 @@ class Transaksi
      * @param string $jenisKendaraan
      * @param int $biaya
      */
-    public function __construct(TransaksiId $id, Tempat $tempat,string $platNomor, DateTime $tglMasuk, ?DateTime $tglKeluar=null, string $jenisKendaraan)
+    public function __construct(TransaksiId $id, Tempat $tempat,string $platNomor, DateTime $tglMasuk, ?DateTime $tglKeluar,string $jenisKendaraan, int $lantai, ?int $biaya, bool $statusBayar)
     {
         $this->id = $id;
         $this->platNomor = $platNomor;
@@ -101,8 +110,9 @@ class Transaksi
             throw new InvalidArgumentException('jenis_kendaraan_tidak_sesuai');
         }
         $this->jenisKendaraan = $jenisKendaraan;
-        $this->biaya=0;
-        $this->statusBayar=false;
+        $this->lantai= $lantai;
+        $this->biaya=$biaya;
+        $this->statusBayar=$statusBayar;
     }
     private function differenceInHours($date1,$date2){
         $diff = $date2->diff($date1);
@@ -111,7 +121,12 @@ class Transaksi
         $hours = $hours + ($diff->days*24);
         return $hours;
     }
-
+    public function cariTempatParkir(){
+//        maybe add zona buat panjang array
+        $input = array(1, 2, 3, 4, 5);
+        $tempat_parkir=$input[array_rand($input)];
+        $this->lantai=$tempat_parkir;
+    }
     //    free parking.png
     //    Langsung auto selesai
     public function SelesaiParkir(): Transaksi

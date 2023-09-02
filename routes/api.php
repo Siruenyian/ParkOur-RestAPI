@@ -19,5 +19,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::get('/caritempat/{nama}', [ParkirController::class, 'CariTempat']);
-Route::post('/cariparkir', [ParkirController::class, 'CariParkir']);
+Route::get('/caritempat', [ParkirController::class, 'DisplayTempat']);
+Route::get('/history', [ParkirController::class, 'DisplayHistory']);
+Route::get('/history/{transaksiId::uuid}', [ParkirController::class, 'DisplayHistoryDetail']);
+Route::post('/masukparkir', [ParkirController::class, 'MasukParkir']);
 Route::post('/bayarparkir', [ParkirController::class, 'BayarParkir']);

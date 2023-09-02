@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Application\Command\CariParkir;
+namespace App\Application\Command\MasukParkir;
 
-class CariParkirRequest
+class MasukParkirRequest
 {
     public function __construct(
         public string $tempatId,

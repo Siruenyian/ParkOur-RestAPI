@@ -23,6 +23,7 @@ class TransaksiSeeder extends \Illuminate\Database\Seeder
             "tgl_masuk" => "2023-08-01 17:00:00",
             "tgl_keluar" => "2023-08-01 18:00:00",
             "jenis_kendaraan" => "MOBIL",
+            "lantai"=>1,
             "biaya" => 5000,
             "status_bayar" => true,
             "id_tempat" => "1530eb83-5619-451a-b2f7-ffec38183a69",
@@ -32,6 +33,7 @@ class TransaksiSeeder extends \Illuminate\Database\Seeder
             "plat_nomor" => "UG2001XX",
             "tgl_masuk" => "2023-08-01 17:00:00",
             "jenis_kendaraan" => "MOTOR",
+            "lantai"=>2,
             "id_tempat" => "1530eb83-5619-451a-b2f7-ffec38183a69",
         ]);
     }

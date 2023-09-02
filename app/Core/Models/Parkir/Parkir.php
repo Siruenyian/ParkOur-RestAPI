@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Core\Models\Parkir;
 use App\Core\Models\Tempat\Tempat;
+use App\Core\Models\Transaksi\Transaksi;
+use InvalidArgumentException;
+
 class Parkir
 {
     private int $lantai;
@@ -68,5 +71,19 @@ class Parkir
         $this->maxMotor = $maxMotor;
         $this->tempat=$tempat;
     }
-
+    public function DecreaseAvailability($jenisKendaraan){
+        if ($jenisKendaraan!=Transaksi::MOBIL & $jenisKendaraan!=Transaksi::MOTOR) {
+            throw new InvalidArgumentException('jenis_kendaraan_tidak_sesuai');
+        }
+        switch ($jenisKendaraan) {
+            case Transaksi::MOBIL:
+                $this->availMobil-=1;
+                break;
+            case Transaksi::MOTOR:
+                $this->availMotor-=1;
+                break;
+            default:
+                $variabel=3000;
+        }
+    }
 }
