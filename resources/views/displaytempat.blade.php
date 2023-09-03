@@ -70,7 +70,14 @@
                 @endforeach
             </ul>
         </div>
+        <form  action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="bluebutton w-full my-9 py-2 bg-red-400 shadow-md hover:bg-red-500 shadow-blue-500/50 hover:shadow-blue-500/40 text-white font-semibold rounded-full border-none focus:outline-none">
+                Log Out
+            </button>
+        </form>
     </div>
+
     </div>
     </body>
 </html>

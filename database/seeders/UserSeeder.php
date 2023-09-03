@@ -18,8 +18,8 @@ class UserSeeder extends \Illuminate\Database\Seeder
     {
         DB::table('users')->insert([
             "id_user"=>"3c8f3b64-acb3-407a-891c-7ba474482297",
-            "username" => "user",
-            "password" => "user",
+            "username" => "mhs1",
+            "password" => "$2a$12$FvYtnzMNSezHEt7rqm8RT.BQbT9HSi/NJQum7W5GfM0.",
             "id_tempat" => "1530eb83-5619-451a-b2f7-ffec38183a69"
         ]);
 
