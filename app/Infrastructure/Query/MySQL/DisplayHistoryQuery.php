@@ -3,7 +3,7 @@
 namespace App\Infrastructure\Query\MySQL;
 use App\Application\Query\DisplayHistoryQuery\DisplayHistoryDto;
 use App\Application\Query\DisplayHistoryQuery\DisplayHistoryQueryInterface;
-use App\Application\Query\DisplayTempatQuery\DisplayTempatDto;
+use App\Application\Query\DisplayTempatQuery\DisplayTempatDetailDto;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use DateTimeZone;

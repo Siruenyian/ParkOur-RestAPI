@@ -12,13 +12,13 @@ use App\Infrastructure\Query\MySQL\DisplayHistoryQuery;
 use App\Infrastructure\Query\MySQL\DisplayTempatQuery;
 use Exception;
 use Illuminate\Http\Request;
-class ParkirController extends Controller
+class APIController extends Controller
 {
 
     public function __construct(
-        private CariTempatQueryInterface $cariTempatQuery,
-        private DisplayTempatQuery $displayTempatQuery,
-        private DisplayHistoryQuery $displayHistoryQuery,
+        private CariTempatQueryInterface  $cariTempatQuery,
+        private DisplayTempatQuery  $displayTempatQuery,
+        private DisplayHistoryQuery       $displayHistoryQuery,
         private DisplayHistoryDetailQuery $displayHistoryDetailQuery
     )
     {

@@ -22,6 +22,8 @@ class DatabaseSeeder extends Seeder
             TempatSeeder::class,
             ParkirSeeder::class,
             TransaksiSeeder::class,
+            UserSeeder::class,
+
         ]);
     }
 }

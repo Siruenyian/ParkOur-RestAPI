@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ParkirController;
+use App\Http\Controllers\APIController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::get('/caritempat/{nama}', [ParkirController::class, 'CariTempat']);
-Route::get('/caritempat', [ParkirController::class, 'DisplayTempat']);
-Route::get('/history', [ParkirController::class, 'DisplayHistory']);
-Route::get('/history/{transaksiId::uuid}', [ParkirController::class, 'DisplayHistoryDetail']);
-Route::post('/masukparkir', [ParkirController::class, 'MasukParkir']);
-Route::post('/bayarparkir', [ParkirController::class, 'BayarParkir']);
+Route::get('/caritempat/{nama}', [APIController::class, 'CariTempat']);
+Route::get('/caritempat', [APIController::class, 'DisplayTempat']);
+Route::get('/history', [APIController::class, 'DisplayHistory']);
+Route::get('/history/{transaksiId::uuid}', [APIController::class, 'DisplayHistoryDetail']);
+Route::post('/masukparkir', [APIController::class, 'MasukParkir']);
+Route::post('/bayarparkir', [APIController::class, 'BayarParkir']);

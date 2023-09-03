@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\WebController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::middleware('guest')->group(function () {
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('auth.login');
+
+    Route::post('/login', [AuthenticationController::class, 'store'])->name('login');
+});
+Route::middleware(['auth'])->group(function () {
+    Route::get('/tempat', [WebController::class, 'DisplayTempat'])->name('displaytempat');
+    Route::get('/tempat/{id:uuid}', [WebController::class, 'DisplayTempatDetail'])->name('displaytempatdetail');
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 });
