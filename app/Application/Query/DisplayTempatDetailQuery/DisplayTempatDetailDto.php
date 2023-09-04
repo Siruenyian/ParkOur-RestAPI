@@ -5,6 +5,7 @@ namespace App\Application\Query\DisplayTempatDetailQuery;
 class DisplayTempatDetailDto
 {
     public function __construct(
+        public ?string $id_tempat,
         public string $nama,
         public int $avail_mobil,
         public int $avail_motor,

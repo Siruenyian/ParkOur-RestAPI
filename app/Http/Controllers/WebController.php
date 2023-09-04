@@ -14,6 +14,9 @@ use App\Infrastructure\Query\MySQL\DisplayTempatDetailQuery;
 
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class WebController extends Controller
 {
 
@@ -56,6 +59,42 @@ class WebController extends Controller
             return "Tidak ada tempat";
         }
         return view('displaytempatdetail',["tempatdetail"=>$tempatdetail]);
+    }
+    public function AdminDashboard()
+    {
+        $user = Auth::user();
+        //could be better but this will do for now
+        $tempat = $this->displayTempatQuery->execute();
+        $tempatdetail=[];
+        foreach ($tempat as $value) {
+            $tempatdetail[] = $this->displayTempatDetailQuery->execute($value->id_tempat);
+            if (!$tempatdetail) {
+                return "Tidak ada tempat";
+            }
+        }
+        if (!$tempat) {
+            return "Tidak ada tempat";
+        }
+
+        return view('admin.dashboard',["user"=>$user,"tempat"=>$tempatdetail]);
+    }
+    public function UserDashboard($id)
+    {
+        $user = Auth::user();
+        $tempatdetail = $this->displayTempatDetailQuery->execute($id);
+        if (!$tempatdetail) {
+            return "Tidak ada tempat";
+        }
+//        this part violates cqrs, but I dont have time
+        $sql="SELECT COUNT(plat_nomor) AS cnt FROM transaksi
+                WHERE id_tempat=:id";
+        $count = DB::selectOne($sql, [
+            'id' => $id,
+        ]);
+        if (!$count) {
+            return null;
+        }
+        return view('user.dashboard',["user"=>$user,"tempatdetail"=>$tempatdetail, "totaltransaction"=>$count->cnt]);
     }
 
 }

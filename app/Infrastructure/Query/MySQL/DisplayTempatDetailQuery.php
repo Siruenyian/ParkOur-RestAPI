@@ -13,11 +13,11 @@ class DisplayTempatDetailQuery implements DisplayTempatDetailQueryInterface
     {
         $sql="SELECT SUM(biaya) AS pendapatan FROM transaksi
                 WHERE id_tempat=:id";
-        $sql2="SELECT nama, code_tempat, latitude, longitude,SUM(avail_mobil) as avail_mobil, SUM(avail_motor) as avail_motor, SUM(max_mobil) as max_mobil, SUM(max_motor) as max_motor, price_mobil, price_motor
+        $sql2="SELECT tempat.id_tempat, nama, code_tempat, latitude, longitude,SUM(avail_mobil) as avail_mobil, SUM(avail_motor) as avail_motor, SUM(max_mobil) as max_mobil, SUM(max_motor) as max_motor, price_mobil, price_motor
                 FROM tempat
                 INNER JOIN parkir ON parkir.id_tempat=tempat.id_tempat
                 WHERE tempat.id_tempat=:id
-                GROUP BY nama, code_tempat, latitude, longitude, price_mobil, price_motor";
+                GROUP BY tempat.id_tempat, nama, code_tempat, latitude, longitude, price_mobil, price_motor";
         $transaksi = DB::selectOne($sql, [
             'id' => $id,
         ]);
@@ -29,6 +29,7 @@ class DisplayTempatDetailQuery implements DisplayTempatDetailQueryInterface
         }
 
         return new DisplayTempatDetailDto(
+            $tempat->id_tempat,
             $tempat->nama,
             $tempat->avail_mobil,
             $tempat->avail_motor,

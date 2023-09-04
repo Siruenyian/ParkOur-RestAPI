@@ -11,13 +11,24 @@ class AuthenticationController extends Controller
     public function store(Request $request)
     {
         $credential = $request->validate([
-            'username' => 'required',
+            'email' => 'required',
             'password' => 'required'
         ]);
-
+//jika login biasa
         if (Auth::attempt($credential)) {
+            $user = Auth::user();
             $request->session()->regenerate();
-            return redirect()->route('displaytempat');
+            switch ($user->group) {
+                case "user":
+                    return redirect()->route('userdashboard', $user->id_tempat);
+                    break;
+                case "admin":
+                    return redirect()->route('admindashboard');
+                    break;
+                default:
+                    return redirect(route('tempat'));
+            }
+
         } else {
             return redirect()->route('auth.login');
         }

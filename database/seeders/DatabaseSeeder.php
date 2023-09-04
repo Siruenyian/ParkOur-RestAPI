@@ -23,7 +23,6 @@ class DatabaseSeeder extends Seeder
             ParkirSeeder::class,
             TransaksiSeeder::class,
             UserSeeder::class,
-
         ]);
     }
 }

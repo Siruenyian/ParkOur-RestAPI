@@ -33,7 +33,7 @@ class APIController extends Controller
         if (!$tempat) {
             return response()->json("Tempat tidak ditemukan", 501);
         }
-        return response()->json($tempat, 200);
+        return response()->json( [$tempat], 200);
     }
 
     public function DisplayTempat()

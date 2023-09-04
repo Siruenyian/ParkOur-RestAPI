@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends \Illuminate\Database\Seeder
 {
@@ -16,12 +17,19 @@ class UserSeeder extends \Illuminate\Database\Seeder
     $table->foreign('id_tempat')->references('id_tempat')->on('tempat')->onUpdate('cascade');;*/
     public function run(): void
     {
-        DB::table('users')->insert([
+        DB::table('user')->insert([
             "id_user"=>"3c8f3b64-acb3-407a-891c-7ba474482297",
-            "username" => "mhs1",
-            "password" => "$2a$12$FvYtnzMNSezHEt7rqm8RT.BQbT9HSi/NJQum7W5GfM0.",
+            "email" => "1@gmail.com",
+            "password" => Hash::make('1'),
+            "group" => 'admin',
             "id_tempat" => "1530eb83-5619-451a-b2f7-ffec38183a69"
         ]);
-
+        DB::table('user')->insert([
+            "id_user"=>"5ce78998-d9f6-41af-8c03-b87e05717bc7",
+            "email" => "2@gmail.com",
+            "password" => Hash::make('2'),
+            "group" => 'user',
+            "id_tempat" => "1530eb83-5619-451a-b2f7-ffec38183a69"
+        ]);
     }
 }

@@ -16,15 +16,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::middleware('guest')->group(function () {
-    Route::get('/login', function () {
-        return view('auth.login');
-    })->name('auth.login');
+ Route::middleware('guest')->group(function () {
+     Route::get('/login', function () {
+         return view('auth.login');
+     })->name('auth.login');
 
-    Route::post('/login', [AuthenticationController::class, 'store'])->name('login');
-});
-Route::middleware(['auth'])->group(function () {
+     Route::post('/login', [AuthenticationController::class, 'store'])->name('login');
+ });
+
+Route::middleware('auth')->group(function () {
     Route::get('/tempat', [WebController::class, 'DisplayTempat'])->name('displaytempat');
     Route::get('/tempat/{id:uuid}', [WebController::class, 'DisplayTempatDetail'])->name('displaytempatdetail');
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+    Route::get('/dashboard', [WebController::class, 'AdminDashboard'])->name('admindashboard')->middleware('adminaccess:admin');
+    Route::get('/dashboard/{id:uuid}', [WebController::class, 'UserDashboard'])->name('userdashboard')->middleware('adminaccess:user');;
 });
+
