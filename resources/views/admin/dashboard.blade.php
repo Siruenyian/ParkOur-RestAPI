@@ -100,12 +100,54 @@
             stroke: var(--series2);
 
         }
-        #chart4 .ct-series-c .ct-slice-donut {
+        #chart4 .ct-series-c  .ct-slice-donut{
             /* Set the colour of this series line */
             stroke: var(--series3);
         }
 
+        #chart5 .ct-series-a .ct-bar{
+            /* Set the colour of this series line */
+            stroke: var(--series1);
 
+        }
+        #chart5 .ct-series-b .ct-bar{
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart5 .ct-series-c  .ct-bar{
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+
+        #chart6 .ct-series-a .ct-bar{
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart6 .ct-series-b .ct-bar{
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart6 .ct-series-c  .ct-bar{
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+        /*#chart5 .ct-label.ct-vertical{*/
+        /*    !* Set the colour of this series line *!*/
+        /*    !*color: #96d5ff;*!*/
+        /*    overflow: visible;*/
+        /*    transform: translate( 100px);*/
+        /*}*/
+        #chart5 .ct-chart-bar{
+
+            overflow: visible;
+        }
+        #chart6 .ct-chart-bar{
+
+            overflow: visible;
+        }
     </style>
 
 </head>
@@ -357,7 +399,7 @@
                         <h5 class="font-bold text-black">Perbandingan</h5>
                     </div>
                     <div class="p-5">
-                        <div class="ct-chart ct-golden-section" id="chart4"></div>
+                        <div class="ct-chart ct-golden-section" id="chart6"></div>
                     </div>
 
                     <!--/Graph Card-->
@@ -376,6 +418,45 @@
 
 <script src="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
 <script>
+    let pielabel = [];
+    @foreach ($tempat as $tempatdetail)
+    pielabel.push('{{ $tempatdetail->nama }}');
+    @endforeach
+
+
+    var data = {
+        labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+        series: [
+            [800000, 1200000, 1400000, 1300000],
+            [200000, 400000, 500000, 300000],
+            [100000, 200000, 400000, 600000]
+        ]
+    };
+
+    var options = {
+        seriesBarDistance: 15
+    };
+
+    var responsiveOptions = [
+        ['screen and (min-width: 641px) and (max-width: 1024px)', {
+            seriesBarDistance: 10,
+            axisX: {
+                labelInterpolationFnc: function (value) {
+                    return value;
+                }
+            }
+        }],
+        ['screen and (max-width: 640px)', {
+            seriesBarDistance: 5,
+            axisX: {
+                labelInterpolationFnc: function (value) {
+                    return value[0];
+                }
+            }
+        }]
+    ];
+
+    new Chartist.Bar('#chart5', data, options, responsiveOptions);
     /* Refer to https://gionkunz.github.io/chartist-js/examples.html for setting up the graphs */
 
     var mainChart = new Chartist.Line('#chart1', {
@@ -431,7 +512,12 @@
             });
         }
     });
-
+    new Chartist.Bar('#chart6', {
+        series: [3, 3, 23],
+        labels: pielabel,
+    }, {
+        distributeSeries: true
+    });
     var chartBar = new Chartist.Bar('#chart3', {
         labels: ['Q1', 'Q2', 'Q3', 'Q4'],
         series: [
@@ -462,12 +548,27 @@
                 });
         }
     });
-    let pielabel = [];
-    @foreach ($tempat as $tempatdetail)
-        pielabel.push('{{ $tempatdetail->nama }}');
-    @endforeach
 
+    var options = {
+        labelInterpolationFnc: function(value) {
+            return value[0]
+        }
+    };
 
+    var responsiveOptions = [
+        ['screen and (min-width: 640px)', {
+            chartPadding: 300,
+            labelOffset: 100,
+            labelDirection: 'explode',
+            labelInterpolationFnc: function(value) {
+                return value;
+            }
+        }],
+        ['screen and (min-width: 1024px)', {
+            labelOffset: 80,
+            chartPadding: 20
+        }]
+    ];
 
     var chartPie = new Chartist.Pie('#chart4', {
         series: [50, 20, 10],

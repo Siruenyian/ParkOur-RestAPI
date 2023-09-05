@@ -12,7 +12,7 @@
 </head>
 
 <body class="items-center w-full h-screen justify-center flex flex-col text-white bg-primary gap-2">
-<div class="absolute h-screen w-screen bg-gray-400 bg-cover  ">ssss</div>
+<div class="absolute h-screen w-screen bg-[url('https://static.republika.co.id/uploads/images/inpicture_slide/petugas-mengarahkan-kendaraan-di-tempat-parkir-kantor-wali-kota-_190717143435-619.jpg')] bg-cover">ssss</div>
 <div class="absolute flex items-center justify-center h-screen w-screen backdrop-blur-sm">
     <div class="flex flex-col justify-items-center">
         <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
