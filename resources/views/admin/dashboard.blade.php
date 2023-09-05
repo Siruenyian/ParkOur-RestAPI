@@ -17,6 +17,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 
     <style>
+        :root {
+            --series1: #bc96ff;
+            --series3: #6c79b3;
+            --series2: #96d5ff;
+
+        }
         .nunito {
             font-family: 'nunito', font-sans;
         }
@@ -53,6 +59,53 @@
         #sidebar:hover span {
             opacity: 1;
         }
+
+        #chart1 .ct-series-a .ct-line {
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart1 .ct-series-b .ct-line {
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart1 .ct-series-c .ct-line {
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+
+        #chart3 .ct-series-a .ct-bar {
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart3 .ct-series-b .ct-bar {
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart3 .ct-series-c .ct-bar {
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+
+        #chart4 .ct-series-a .ct-slice-donut {
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart4 .ct-series-b .ct-slice-donut{
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart4 .ct-series-c .ct-slice-donut {
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+
+
     </style>
 
 </head>
@@ -164,7 +217,7 @@
                         <div class="rounded-full p-3 bg-gray-300"><i class="fa fa-wallet fa-fw fa-inverse text-indigo-500"></i></div>
                     </div>
                     <div class="flex-col">
-                        <h3 class="font-bold text-3xl">Rp200.000,00 <span class="text-green-500"><i class="fas fa-caret-up"></i></span></h3>
+                        <h3 class="font-bold text-3xl">Rp20.000,00 <span class="text-green-500"><i class="fas fa-caret-up"></i></span></h3>
                         <h5 class="font-bold text-gray-500">Total Revenue</h5>
                     </div>
                 </div>
@@ -246,7 +299,20 @@
                                             <td>{{ $tempatdetail->nama }}</td>
                                             <td>{{ $tempatdetail->avail_mobil }}/{{ $tempatdetail->max_mobil }}</td>
                                             <td>{{ $tempatdetail->avail_motor }}/{{ $tempatdetail->max_motor }}</td>
-                                            <td>{{ $tempatdetail->pendapatan }}</td>
+                                            <td>
+                                                @if ($tempatdetail->pendapatan != null)
+                                                    <span class="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
+
+                                                        {{ $tempatdetail->pendapatan }}
+                                                    </span>
+                                                @else
+                                                    <span class="inline-flex items-center bg-red-100 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded-full">
+
+                                                        None
+                                                    </span>
+                                                @endif
+
+                                            </td>
 
                                             </a>
                                         </tr>

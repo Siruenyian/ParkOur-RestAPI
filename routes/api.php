@@ -24,3 +24,4 @@ Route::get('/history', [APIController::class, 'DisplayHistory']);
 Route::get('/history/{transaksiId::uuid}', [APIController::class, 'DisplayHistoryDetail']);
 Route::post('/masukparkir', [APIController::class, 'MasukParkir']);
 Route::post('/bayarparkir', [APIController::class, 'BayarParkir']);
+Route::get('/cekbiaya/{transaksiId::uuid}', [APIController::class, 'CekBiaya']);

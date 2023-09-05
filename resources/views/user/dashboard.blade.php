@@ -17,6 +17,12 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
 
     <style>
+        :root {
+            --series1: #bc96ff;
+            --series3: #6c79b3;
+            --series2: #96d5ff;
+
+        }
         .nunito {
             font-family: 'nunito', font-sans;
         }
@@ -52,6 +58,66 @@
 
         #sidebar:hover span {
             opacity: 1;
+        }
+
+        #chart1 .ct-series-a .ct-line {
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart1 .ct-series-b .ct-line {
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart1 .ct-series-c .ct-line {
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+
+        #chart3 .ct-series-a .ct-bar {
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart3 .ct-series-b .ct-bar {
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart3 .ct-series-c .ct-bar {
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+
+        #chart2 .ct-series-a .ct-point{
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart2 .ct-series-a .ct-line{
+            /* Set the colour of this series line */
+            stroke: var(--series1);
+
+        }
+        #chart2 .ct-series-b .ct-point{
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart2 .ct-series-b .ct-line{
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
+        }
+        #chart2 .ct-series-c .ct-point{
+            /* Set the colour of this series line */
+            stroke: var(--series3);
+        }
+        #chart2 .ct-series-c .ct-line{
+            /* Set the colour of this series line */
+            stroke: var(--series2);
+
         }
     </style>
 

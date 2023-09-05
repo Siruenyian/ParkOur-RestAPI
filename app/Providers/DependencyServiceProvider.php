@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Application\Query\CariTempatQuery\CariTempatQueryInterface;
+use App\Application\Query\CekBiayaQuery\CekBiayaQueryInterface;
 use App\Application\Query\DisplayHistoryDetailQuery\DisplayHistoryDetailQueryInterface;
 use App\Application\Query\DisplayHistoryQuery\DisplayHistoryQueryInterface;
 use App\Application\Query\DisplayTempatDetailQuery\DisplayTempatDetailQueryInterface;
@@ -11,6 +12,7 @@ use App\Core\Models\Tempat\Tempat;
 use App\Core\Repository\TempatRepositoryInterface;
 use App\Core\Repository\TransaksiRepositoryInterface;
 use App\Infrastructure\Query\MySQL\CariTempatQuery;
+use App\Infrastructure\Query\MySQL\CekBiayaQuery;
 use App\Infrastructure\Query\MySQL\DisplayHistoryDetailQuery;
 use App\Infrastructure\Query\MySQL\DisplayHistoryQuery;
 use App\Infrastructure\Query\MySQL\DisplayTempatDetailQuery;
@@ -31,6 +33,7 @@ class DependencyServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->bind(DisplayTempatQueryInterface::class, DisplayTempatQuery::class);
         $this->app->bind(DisplayHistoryDetailQueryInterface::class, DisplayHistoryDetailQuery::class);
         $this->app->bind(DisplayHistoryQueryInterface::class, DisplayHistoryQuery::class);
+        $this->app->bind(CekBiayaQueryInterface::class, CekBiayaQuery::class);
 
     }
 

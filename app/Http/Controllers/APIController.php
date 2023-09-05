@@ -7,6 +7,7 @@ use App\Application\Command\BayarParkir\BayarParkirRequest;
 use App\Application\Command\MasukParkir\MasukParkirCommand;
 use App\Application\Command\MasukParkir\MasukParkirRequest;
 use App\Application\Query\CariTempatQuery\CariTempatQueryInterface;
+use App\Infrastructure\Query\MySQL\CekBiayaQuery;
 use App\Infrastructure\Query\MySQL\DisplayHistoryDetailQuery;
 use App\Infrastructure\Query\MySQL\DisplayHistoryQuery;
 use App\Infrastructure\Query\MySQL\DisplayTempatQuery;
@@ -19,7 +20,8 @@ class APIController extends Controller
         private CariTempatQueryInterface  $cariTempatQuery,
         private DisplayTempatQuery  $displayTempatQuery,
         private DisplayHistoryQuery       $displayHistoryQuery,
-        private DisplayHistoryDetailQuery $displayHistoryDetailQuery
+        private DisplayHistoryDetailQuery $displayHistoryDetailQuery,
+        private CekBiayaQuery $cekBiayaQuery,
     )
     {
     }
@@ -67,7 +69,15 @@ class APIController extends Controller
         }
         return response()->json($history, 200);
     }
+    public function CekBiaya($transaksiId)
+    {
+        $transaksi = $this->cekBiayaQuery->execute($transaksiId);
 
+        if (!$transaksi) {
+            return response()->json("Tranasksi tidak ditemukan", 501);
+        }
+        return response()->json($transaksi, 200);
+    }
 //    test with 1530eb83-5619-451a-b2f7-ffec38183a69, ALKSNDAKJ
     public function MasukParkir(Request $request, MasukParkirCommand $command)
     {
