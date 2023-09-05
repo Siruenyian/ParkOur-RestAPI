@@ -395,12 +395,12 @@
 
                     <!--Graph Card-->
 
-                    <div class="border-b p-3">
-                        <h5 class="font-bold text-black">Perbandingan</h5>
-                    </div>
-                    <div class="p-5">
-                        <div class="ct-chart ct-golden-section" id="chart6"></div>
-                    </div>
+{{--                    <div class="border-b p-3">--}}
+{{--                        <h5 class="font-bold text-black">Perbandingan</h5>--}}
+{{--                    </div>--}}
+{{--                    <div class="p-5">--}}
+{{--                        <div class="ct-chart ct-golden-section" id="chart6"></div>--}}
+{{--                    </div>--}}
 
                     <!--/Graph Card-->
 
