@@ -7,10 +7,12 @@ use App\Application\Command\BayarParkir\BayarParkirRequest;
 use App\Application\Command\MasukParkir\MasukParkirCommand;
 use App\Application\Command\MasukParkir\MasukParkirRequest;
 use App\Application\Query\CariTempatQuery\CariTempatQueryInterface;
+use App\Core\Models\Transaksi\TransaksiId;
 use App\Infrastructure\Query\MySQL\CekBiayaQuery;
 use App\Infrastructure\Query\MySQL\DisplayHistoryDetailQuery;
 use App\Infrastructure\Query\MySQL\DisplayHistoryQuery;
 use App\Infrastructure\Query\MySQL\DisplayTempatQuery;
+use App\Infrastructure\Repository\MySQL\TransaksiReposiory;
 use Exception;
 use Illuminate\Http\Request;
 class APIController extends Controller
@@ -22,6 +24,7 @@ class APIController extends Controller
         private DisplayHistoryQuery       $displayHistoryQuery,
         private DisplayHistoryDetailQuery $displayHistoryDetailQuery,
         private CekBiayaQuery $cekBiayaQuery,
+        private TransaksiReposiory $transaksiReposiory
     )
     {
     }
@@ -72,10 +75,11 @@ class APIController extends Controller
     public function CekBiaya($transaksiId)
     {
         $transaksi = $this->cekBiayaQuery->execute($transaksiId);
-
+        $transaksi2=$this->transaksiReposiory->byId(new transaksiId($transaksiId));
         if (!$transaksi) {
             return response()->json("Tranasksi tidak ditemukan", 501);
         }
+        $transaksi->price_total=$transaksi2->getBiaya();
         return response()->json($transaksi, 200);
     }
 //    test with 1530eb83-5619-451a-b2f7-ffec38183a69, ALKSNDAKJ

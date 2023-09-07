@@ -14,13 +14,15 @@ class CekBiayaQuery implements CekBiayaQueryInterface
     {
         $sql="SELECT biaya, tgl_masuk, tgl_keluar
                 FROM transaksi
+                JOIN tempat
+                ON transaksi.id_tempat=tempat.id_tempat
                 WHERE id_transaksi= :id";
 
         $hasil = DB::selectOne($sql, [
             'id' => $id,
         ]);
         if (!$hasil) return null;
-        return new CekBiayaDto($hasil->biaya, new DateTime($hasil->tgl_masuk, new DateTimeZone("Asia/Jakarta")),
-            new DateTime($hasil->tgl_keluar, new DateTimeZone("Asia/Jakarta")));
+        return new CekBiayaDto($hasil->biaya ? $hasil->biaya : 0, new DateTime($hasil->tgl_masuk, new DateTimeZone("Asia/Jakarta")),
+            new DateTime($hasil->tgl_keluar, new DateTimeZone("Asia/Jakarta")) ? new DateTime($hasil->tgl_keluar, new DateTimeZone("Asia/Jakarta")) : new DateTime("now", new DateTimeZone("Asia/Jakarta")));
     }
 }
