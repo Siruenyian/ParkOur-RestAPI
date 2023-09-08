@@ -146,11 +146,11 @@ class Transaksi
         $this->tglKeluar = new DateTime('now');
         $hours=$this->differenceInHours($this->tglMasuk,$this->tglKeluar);
         //hitung tarif
-        if ($hours>2){
+        if ($hours>=2){
             $this->biaya= $harga*$hours;
             return  $this;
         }
-        $this->biaya=$harga*2;
+        $this->biaya=$harga;
         $this->statusBayar=true;
         return $this;
     }
