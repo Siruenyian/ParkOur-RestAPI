@@ -15,7 +15,8 @@ class DisplayHistoryQuery implements DisplayHistoryQueryInterface
     {
         $sql="SELECT nama, tgl_masuk, tgl_keluar, TIMESTAMPDIFF(HOUR, tgl_masuk, tgl_keluar) as time_elapsed, id_transaksi, status_bayar, biaya
                 FROM transaksi
-                INNER JOIN tempat ON transaksi.id_tempat=tempat.id_tempat";
+                INNER JOIN tempat ON transaksi.id_tempat=tempat.id_tempat
+                ORDER BY tgl_masuk DESC";
         $result = DB::select($sql);
         $history = array();
         foreach ($result as $hasil) {
