@@ -54,7 +54,29 @@ class Transaksi
      */
     public function getBiaya(): ?int
     {
-        return $this->biaya;
+        if($this->statusBayar) {
+            return $this->biaya;
+        } else {
+            switch ($this->jenisKendaraan) {
+                case self::MOBIL:
+                    $harga=$this->tempat->getPriceMobil();
+                break;
+                case self::MOTOR:
+                    $harga=$this->tempat->getPriceMotor();
+                break;
+                default:
+                    $harga=3000;
+            }
+    
+            $tglKeluar = new DateTime('now');
+            $hours=$this->differenceInHours($this->tglMasuk, $tglKeluar);
+            //hitung tarif
+            if ($hours>=2){
+                $biaya= $harga*$hours;
+                return  $biaya;
+            }
+            return $harga;
+        }
     }
 
     private string $platNomor;
