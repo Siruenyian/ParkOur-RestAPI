@@ -7,6 +7,7 @@ class DisplayTempatDto
     public function __construct(
         public ?string $id_tempat,
         public string $nama,
+        public string $alamat,
         public string $latitude,
         public string $longitude,
         public int $avail_mobil,
